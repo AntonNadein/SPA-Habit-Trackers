@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "spa-trekers"
+version = "0.1.0"
+description = ""
+authors = ["Anton"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.4"
+djangorestframework = "^3.15.2"
+pillow = "^11.1.0"
+psycopg2-binary = "^2.9.10"
+python-dotenv = "^1.0.1"
+django-filter = "^24.3"
+djangorestframework-simplejwt = "^5.4.0"
+stripe = "^11.5.0"
+redis = "^5.2.1"
+celery = "^5.4.0"
+eventlet = "^0.39.0"
+django-celery-beat = "^2.7.0"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.group.lint.dependencies]
+black = "^24.10.0"
+flake8 = "^7.1.0"
+isort = "^5.13.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^6.0.0"
+
+[tool.black]
+line-length = 119
+exclude = '''
+(
+  /(
+      \.eggs         # Исключить несколько общих каталогов
+    | \.git          # в корне проекта
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | dist
+  )/
+  | foo.py           # Также отдельно исключить файл с именем foo.py
+                     # в корне проекта
+)
+'''
+
+[tool.isort]
+line_length = 119
