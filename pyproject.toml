@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "spa-trekers"
+name = "spa-trackers"
 version = "0.1.0"
 description = ""
 authors = ["Anton"]
