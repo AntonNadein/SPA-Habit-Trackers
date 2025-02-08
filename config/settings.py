@@ -133,3 +133,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_BROKER_BACKEND = os.getenv("CELERY_BROKER_BACKEND")
+
+TG_BOT_URL = "https://api.telegram.org/bot"
+TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")

@@ -6,6 +6,9 @@ class ModelUser(AbstractUser):
     """Модель пользователь"""
 
     email = models.EmailField(unique=True, verbose_name="Email-адрес", help_text="Введите свой Email-адрес")
+    tg_chat_id = models.CharField(
+        max_length=100, null=True, blank=True, verbose_name="ID Телеграмм чат бота", help_text="Введите свой chat-id"
+    )
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [

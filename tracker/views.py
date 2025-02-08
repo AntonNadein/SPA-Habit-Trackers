@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from tracker.models import TrackerModel
 from tracker.pagination import TrackerPagination
 from tracker.serializers import TrackerModelSerializer
+from tracker.tasks import get_setting_tracker
 from users.permissions import IsOwner
 
 
@@ -22,8 +23,12 @@ class TrackerModelViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         tracker = serializer.save()
-        tracker.owner = self.request.user
+        user = self.request.user
+        tracker.owner = user
         tracker.save()
+        # создаем отложенную задачу в телеграмм
+        if user.tg_chat_id:
+            get_setting_tracker(tracker.time, tracker.periodicity, str(tracker), str(user.tg_chat_id))
 
     # def get_permissions(self):
     #     if self.action in ["create", "retrieve", "update", "destroy"]:
