@@ -8,6 +8,7 @@ from config import settings
 
 
 def get_setting_tracker(times, day, text, chat_id):
+    """Настройка добавления отложенной задачи Celery"""
     # Создаем интервал для повтора
     schedule, created = CrontabSchedule.objects.get_or_create(
         minute=str(times.minute),
@@ -28,6 +29,7 @@ def get_setting_tracker(times, day, text, chat_id):
 
 @shared_task
 def send_tg_chat_message(text, chat_id):
+    """Функция отправки сообщения в телеграмм бот"""
     params = {
         "text": text,
         "chat_id": chat_id,

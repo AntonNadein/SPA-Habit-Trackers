@@ -9,6 +9,7 @@ class TrackerModelSerializer(serializers.ModelSerializer):
         required=False, validators=[TimeToCompleteValidator(field="time_to_complete")]
     )
     periodicity = serializers.IntegerField(required=False, validators=[PeriodicityValidator(field="periodicity")])
+    reward = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         model = TrackerModel
@@ -25,19 +26,8 @@ class TrackerModelSerializer(serializers.ModelSerializer):
 
         # валидация в методе PATCH если изменяется один атрибут
         if self.instance:
-            if attrs.get("is_nice"):
-                is_nice = True
-            elif not attrs.get("is_nice"):
-                is_nice = False
-            else:
-                is_nice = self.instance.is_nice
-            if attrs.get("reward"):
-                reward = attrs.get("reward")
-            else:
-                reward = self.instance.reward
-            if attrs.get("associated_habit"):
-                associated_habit = attrs.get("associated_habit")
-            else:
-                associated_habit = self.instance.associated_habit
+            is_nice = attrs.get("is_nice", self.instance.is_nice)
+            reward = attrs.get("reward", self.instance.reward)
+            associated_habit = attrs.get("associated_habit", self.instance.associated_habit)
         validation_data(is_nice, reward, associated_habit, request_data)
         return attrs

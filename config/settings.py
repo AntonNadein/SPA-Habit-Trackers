@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework_simplejwt",
     "drf_yasg",
+    "corsheaders",
     "users",
     "tracker",
 ]
@@ -44,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -136,3 +138,7 @@ CELERY_BROKER_BACKEND = os.getenv("CELERY_BROKER_BACKEND")
 
 TG_BOT_URL = "https://api.telegram.org/bot"
 TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+]

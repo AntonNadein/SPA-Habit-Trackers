@@ -18,8 +18,11 @@ class TrackerModelViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
-        user = self.request.user
-        return TrackerModel.objects.filter(owner=user)
+        if "redoc" in self.request.path or "swagger" in self.request.path:
+            return TrackerModel.objects.none()
+        else:
+            user = self.request.user
+            return TrackerModel.objects.filter(owner=user)
 
     def perform_create(self, serializer):
         tracker = serializer.save()
@@ -29,13 +32,6 @@ class TrackerModelViewSet(viewsets.ModelViewSet):
         # создаем отложенную задачу в телеграмм
         if user.tg_chat_id:
             get_setting_tracker(tracker.time, tracker.periodicity, str(tracker), str(user.tg_chat_id))
-
-    # def get_permissions(self):
-    #     if self.action in ["create", "retrieve", "update", "destroy"]:
-    #         self.permission_classes = (IsOwner,)
-    #     elif self.action == "list":
-    #         self.permission_classes = (IsAuthenticatedOrReadOnly,)
-    #     return super().get_permissions()
 
 
 class TrackerModelGenericList(generics.ListAPIView):
