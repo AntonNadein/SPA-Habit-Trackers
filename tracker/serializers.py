@@ -5,6 +5,8 @@ from tracker.validators import PeriodicityValidator, TimeToCompleteValidator, va
 
 
 class TrackerModelSerializer(serializers.ModelSerializer):
+    """Сериализатор трекера привычек с валидацией"""
+
     time_to_complete = serializers.IntegerField(
         required=False, validators=[TimeToCompleteValidator(field="time_to_complete")]
     )

@@ -5,6 +5,8 @@ from users.models import ModelUser
 
 
 class TrackerModel(models.Model):
+    """Модель трекера привычек"""
+
     owner = models.ForeignKey(
         ModelUser,
         on_delete=CASCADE,

@@ -18,6 +18,7 @@ class TrackerModelViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
+        """Получение queryset пустой для документации и отфильтрованный для пользователей"""
         if "redoc" in self.request.path or "swagger" in self.request.path:
             return TrackerModel.objects.none()
         else:
@@ -25,6 +26,7 @@ class TrackerModelViewSet(viewsets.ModelViewSet):
             return TrackerModel.objects.filter(owner=user)
 
     def perform_create(self, serializer):
+        """Добавление новому пользователю защищенного пароля и отложенной задачи для телеграмм бота"""
         tracker = serializer.save()
         user = self.request.user
         tracker.owner = user
