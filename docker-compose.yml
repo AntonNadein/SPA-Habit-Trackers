@@ -60,7 +60,7 @@ services:
   celery_beat:
     build:
       context: .
-    command: sh -c "sleep 5 && celery -A config beat -l info -S django"
+    command: sh -c "sleep 10 && celery -A config beat -l info -S django"
     volumes:
       - .:/app
     depends_on:
