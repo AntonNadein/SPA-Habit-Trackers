@@ -84,10 +84,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd ./${{ secrets.REPO_NAME }}
-            sudo docker-compose down || true
-            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+            docker-compose down || true
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
             echo "${{ secrets.ENV }}" > .env
-            sudo docker stop myapp || true
-            sudo docker rm myapp || true
-            sudo docker-compose up -d
+            docker stop myapp || true
+            docker rm myapp || true
+            docker-compose up -d --build
           EOF
