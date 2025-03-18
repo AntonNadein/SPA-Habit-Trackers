@@ -92,7 +92,7 @@ jobs:
             else
             # Директория не найдена, выполняем первый деплой из ветки git
               git clone --branch {{ secrets.BRANCH }} https://github.com/${{ secrets.GHUB_USERNAME }}/${{ secrets.REPO_NAME }}.git
-              cd ./DRF_homework
+              cd ./{{ secrets.REPO_NAME }}
               echo "${{ secrets.ENV }}" > .env
               sudo docker-compose up -d
             fi
