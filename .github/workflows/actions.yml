@@ -84,14 +84,14 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             if [ -d "./${{ secrets.REPO_NAME }}" ]; then
-              cd ./${{ secrets.REPO_NAME }}
+              cd ./
               docker-compose down || true
               git pull
               echo "${{ secrets.ENV }}" > .env
               docker-compose up -d
             else
             # Директория не найдена, выполняем первый деплой из ветки git
-              git clone -b {{ secrets.BRANCH }} https://github.com/${{ secrets.GITHUB_USERNAME }}/DRF_homework.git
+              git clone -b {{ secrets.BRANCH }} https://github.com/${{ secrets.GITHUB_USERNAME }}/${{ secrets.REPO_NAME }}.git
               cd ./DRF_homework
               echo "${{ secrets.ENV }}" > .env
               docker-compose up -d
