@@ -82,6 +82,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
+          scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.REPO_NAME }}
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd ./${{ secrets.REPO_NAME }}
             docker-compose down || true
